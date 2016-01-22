@@ -39,6 +39,7 @@ print(paste("Median:" , ac_d_median))
 ```
 
 ## What is the average daily activity pattern?
+### If not too difficult, convert these to times of day
 ```{r echo=TRUE, fig.keep='all'}
 act_nona <- na.omit(activity_raw) ## pesky NAs!
 ac_interval <- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$interval))
@@ -51,9 +52,8 @@ print(paste("Number of steps at most active:", act_nona_sort$x[1]))
 ```
 
 ## Imputing missing values
-<!-- Note to self: imputing is not a typo like you thought the first time. -->
-
-### Skipping for now. I could also justify not creating new data as my methods would be faulty. :-)
+### Note to self: imputing is not a typo like you thought the first time.
+### Still TODO.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r echo=TRUE, fig.keep='all'}

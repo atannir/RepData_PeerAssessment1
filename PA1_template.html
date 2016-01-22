@@ -90,6 +90,8 @@ activity_raw &lt;- read.csv(&quot;activity.csv&quot;, colClasses = c(&quot;integ
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>
+<div id="if-not-too-difficult-convert-these-to-times-of-day" class="section level3">
+<h3>If not too difficult, convert these to times of day</h3>
 <pre class="r"><code>act_nona &lt;- na.omit(activity_raw) ## pesky NAs!
 ac_interval &lt;- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$interval))
 
@@ -101,11 +103,14 @@ print(paste(&quot;Most active period:&quot;, act_nona_sort$Group.1[1]))</code></
 <pre class="r"><code>print(paste(&quot;Number of steps at most active:&quot;, act_nona_sort$x[1]))</code></pre>
 <pre><code>## [1] &quot;Number of steps at most active: 10927&quot;</code></pre>
 </div>
+</div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
-<!-- Note to self: imputing is not a typo like you thought the first time. -->
-<div id="skipping-for-now.-i-could-also-justify-not-creating-new-data-as-my-methods-would-be-faulty.--" class="section level3">
-<h3>Skipping for now. I could also justify not creating new data as my methods would be faulty. :-)</h3>
+<div id="note-to-self-imputing-is-not-a-typo-like-you-thought-the-first-time." class="section level3">
+<h3>Note to self: imputing is not a typo like you thought the first time.</h3>
+</div>
+<div id="still-todo." class="section level3">
+<h3>Still TODO.</h3>
 </div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
