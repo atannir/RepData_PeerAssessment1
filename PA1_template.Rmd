@@ -1,25 +1,65 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
-    keep_md: true
+html_document:
+keep_md: true
 ---
+## Loading and preprocessing the data
 
+```{r echo=TRUE}
 
 ## Loading and preprocessing the data
 
+## Since the zip is included in the repo, let's check and unzip it.
+if(!file.exists("activity.csv"))
+  {
+    if(file.exists("activity.zip"))
+    {
+      unzip("activity.zip")
+    } ## else we could download it but... 
+    ##  it should be handled manually at this point.
+  } ## else we are good to go.
 
+## Load the file in and store.
+
+activity_raw <- read.csv("activity.csv", colClasses = c("integer", "Date", "integer"))
+```
 
 ## What is mean total number of steps taken per day?
+```{r echo=FALSE, fig.keep='all'}
+## sum by day, then histogram. Ignore NA
+ac_d <- aggregate(x = activity_raw$steps, FUN = sum, by = list(activity_raw$date))
+hist(ac_d$x, breaks = 20, xlab = "Steps per day", main = "Histogram of daily step count")
 
-
+## display mean and median
+ac_d_mean <- mean(ac_d$x, na.rm = TRUE)
+ac_d_median <- median(ac_d$x, na.rm = TRUE)
+print(paste("Mean: ", ac_d_mean))
+print(paste("Median:" , ac_d_median))
+```
 
 ## What is the average daily activity pattern?
+```{r echo=TRUE, fig.keep='all'}
+act_nona <- na.omit(activity_raw) ## pesky NAs!
+ac_interval <- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$interval))
 
+plot(ac_interval, type = "l", xlab= "Time Offset (5 Minute Intervals)", ylab = "Steps")
+act_nona_sort <- ac_interval[order(ac_interval$x, decreasing = TRUE),]
+print(paste("Most active period:", act_nona_sort$Group.1[1]))
+print(paste("Number of steps at most active:", act_nona_sort$x[1]))
 
+```
 
 ## Imputing missing values
 <!-- Note to self: imputing is not a typo like you thought the first time. -->
 
+### Skipping for now. I could also justify not creating new data as my methods would be faulty. :-)
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r echo=TRUE, fig.keep='all'}
+## Skipping the NAs again because I don't feel comfortable creating them, even with simple methods.
+act_nona_days <- na.omit(activity_raw) ## remove NA from raw data
+act_nona_days$dayofweek <- weekdays(act_nona$date)
+act_nona_days$weekend <- ifelse(act_nona_days$dayofweek == "Saturday" | act_nona_days$dayofweek == "Sunday", TRUE, FALSE )
+
+```
