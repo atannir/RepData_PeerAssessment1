@@ -1,8 +1,8 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-html_document:
-keep_md: true
+  html_document: 
+    keep_md: yes
 ---
 ## Loading and preprocessing the data
 
@@ -46,7 +46,7 @@ ac_interval <- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$inter
 
 plot(ac_interval, type = "l", xlab= "Time Offset (5 Minute Intervals)", ylab = "Steps")
 act_nona_sort <- ac_interval[order(ac_interval$x, decreasing = TRUE),]
-##  Answer of 835 is approximately 14:00 / 2:00 PM
+## 835 is a modified clock time, not 835 minutes after midnight
 print(paste("Most active period:", act_nona_sort$Group.1[1]))
 
 print(paste("Number of steps at most active:", act_nona_sort$x[1]))
