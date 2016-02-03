@@ -46,10 +46,8 @@ ac_interval <- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$inter
 
 plot(ac_interval, type = "l", xlab= "Time Offset (5 Minute Intervals)", ylab = "Steps")
 act_nona_sort <- ac_interval[order(ac_interval$x, decreasing = TRUE),]
-<<<<<<< HEAD
-=======
 ## 835 is a modified clock time, not 835 minutes after midnight
->>>>>>> origin/master
+
 print(paste("Most active period:", act_nona_sort$Group.1[1]))
 print(paste("Number of steps at most active:", act_nona_sort$x[1]))
 

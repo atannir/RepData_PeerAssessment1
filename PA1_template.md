@@ -21,28 +21,10 @@ activity_raw <- read.csv("activity.csv", colClasses = c("integer", "Date", "inte
 ```
 
 ## What is mean total number of steps taken per day?
-
-```r
-## sum by day, then histogram. Ignore NA
-ac_d <- aggregate(x = activity_raw$steps, FUN = sum, by = list(activity_raw$date))
-hist(ac_d$x, breaks = 20, xlab = "Steps per day", main = "Histogram of daily step count")
-```
-
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)
-
-```r
-## display mean and median
-ac_d_mean <- mean(ac_d$x, na.rm = TRUE)
-ac_d_median <- median(ac_d$x, na.rm = TRUE)
-print(paste("Mean: ", ac_d_mean))
-```
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
 
 ```
 ## [1] "Mean:  10766.1886792453"
-```
-
-```r
-print(paste("Median:" , ac_d_median))
 ```
 
 ```
@@ -59,11 +41,12 @@ ac_interval <- aggregate(x = act_nona$steps, FUN = sum, by = list(act_nona$inter
 plot(ac_interval, type = "l", xlab= "Time Offset (5 Minute Intervals)", ylab = "Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)\
 
 ```r
 act_nona_sort <- ac_interval[order(ac_interval$x, decreasing = TRUE),]
-##  Answer of 835 is approximately 14:00 / 2:00 PM
+## 835 is a modified clock time, not 835 minutes after midnight
+
 print(paste("Most active period:", act_nona_sort$Group.1[1]))
 ```
 
@@ -81,16 +64,13 @@ print(paste("Number of steps at most active:", act_nona_sort$x[1]))
 
 ## Imputing missing values
 ### Note to self: imputing is not a typo like you thought the first time.
-
-```r
-## There are a large number of NA at the very start, making my rolling average idea a little more troublesome
-```
+### Still TODO.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 ```r
+## Skipping the NAs again because I don't feel comfortable creating them, even with simple methods.
 act_nona_days <- na.omit(activity_raw) ## remove NA from raw data
 act_nona_days$dayofweek <- weekdays(act_nona$date)
 act_nona_days$weekend <- ifelse(act_nona_days$dayofweek == "Saturday" | act_nona_days$dayofweek == "Sunday", TRUE, FALSE )
-## plot two beside each other or in one graph with different colors
 ```
